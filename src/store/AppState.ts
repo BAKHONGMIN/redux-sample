@@ -1,4 +1,5 @@
 // 이 파일은 글로벌 상태를 제공하는 AppState타입의 rootReducer라는 통합된 리듀서 객체를
+// store에 저장되는 리듀서는 오직 1개이기 때문에 여기서 모은다.
 import { combineReducers } from "redux";
 import { UserReducer } from "./UserReducer";
 import { PostReducer } from "./PostReducer";

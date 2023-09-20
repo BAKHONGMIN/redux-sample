@@ -1,14 +1,17 @@
 import React, { useState } from "react";
+
 import { useDispatch } from "react-redux";
-import "./App.css";
+
 import { USER_TYPE } from "./store/UserReducer";
 import UserDisplay from "./UserDisplay";
-import PostDisplay from "./PostDisplay";
+
 import { POST_TYPE } from "./store/PostReducer";
+import PostDisplay from "./PostDisplay";
 
 function App() {
-  const [userid, setUserid] = useState(0);
   const dispatch = useDispatch();
+
+  const [userid, setUserid] = useState(0);
   const [postid, setPostId] = useState(0);
 
   const onchangeUserId = async (e: React.ChangeEvent<HTMLInputElement>) => {

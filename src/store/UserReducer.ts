@@ -1,4 +1,5 @@
 // 먼저 USER_TYPE이라는 액션타입 상수를 만든다.
+//보통은 타입에 파일명/액션이름 ; 이렇게 작성한다.
 export const USER_TYPE = "USER_TYPE";
 
 export interface User {
