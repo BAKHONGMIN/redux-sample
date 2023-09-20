@@ -3,10 +3,14 @@ import { useDispatch } from "react-redux";
 import "./App.css";
 import { USER_TYPE } from "./store/UserReducer";
 import UserDisplay from "./UserDisplay";
+import PostDisplay from "./PostDisplay";
+import { POST_TYPE } from "./store/PostReducer";
 
 function App() {
   const [userid, setUserid] = useState(0);
   const dispatch = useDispatch();
+  const [postid, setPostId] = useState(0);
+
   const onchangeUserId = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const useridFromInput = e.target.value ? Number(e.target.value) : 0;
     console.log("userid", useridFromInput);
@@ -33,13 +37,46 @@ function App() {
       });
     }
   };
+
+  const onChangePostId = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const postIdFromInput = e.target.value ? Number(e.target.value) : 0;
+    setPostId(postIdFromInput);
+
+    const postResponse = await fetch(
+      "https://jsonplaceholder.typicode.com/posts/" + postIdFromInput
+    );
+
+    if (postResponse.ok) {
+      const post = await postResponse.json();
+      console.log("post", post);
+      dispatch({
+        type: POST_TYPE,
+        payload: {
+          id: post.id,
+          title: post.title,
+          body: post.body
+        }
+      });
+    }
+  };
+
   return (
     <>
-      <div className="App">
-        <label>user id</label>
-        <input value={userid} onChange={onchangeUserId} />
+      <div style={{ width: "300px" }}>
+        <div className="App">
+          <label>user id</label>
+          <input value={userid} onChange={onchangeUserId} />
+        </div>
+        <UserDisplay />
       </div>
-      <UserDisplay />
+      <br />
+      <div style={{ width: "300px" }}>
+        <div className="App">
+          <label>post id</label>
+          <input value={postid} onChange={onChangePostId} />
+        </div>
+        <PostDisplay />
+      </div>
     </>
   );
 }
